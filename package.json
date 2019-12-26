@@ -5,11 +5,16 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start -p %PORT%",
+    "export": "next export",
+    "deploy": "npm run build && npm run export"
   },
   "dependencies": {
+    "@zeit/next-css": "^1.0.1",
     "next": "9.1.4",
+    "next-images": "^1.2.0",
     "react": "16.12.0",
-    "react-dom": "16.12.0"
+    "react-dom": "16.12.0",
+    "styled-components": "^4.4.1"
   }
 }
