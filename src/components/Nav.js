@@ -6,10 +6,14 @@ const Nav = () => (
   <NavStyle>
     <ul>
       <li>
-        <Link href="/home">Home</Link>
+        <Link href="/home">
+          <a>Home</a>
+        </Link>
       </li>
       <li>
-        <Link href="/new">New</Link>
+        <Link href="/new">
+          <a>New</a>
+        </Link>
       </li>
     </ul>
   </NavStyle>
