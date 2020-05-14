@@ -1,6 +1,7 @@
 import Router from "next/router";
-const CONST_KEY_TOKEN = "id_token";
-const CONST_KEY_PROFILE = "profile";
+import Cookie from "js-cookie";
+export const CONST_KEY_TOKEN = "sojo_token";
+export const CONST_KEY_PROFILE = "sojo_profile";
 export default class AuthService {
   constructor() {
     this.getProfile = this.getProfile.bind(this);
@@ -21,35 +22,26 @@ export default class AuthService {
   }
 
   setToken(idToken) {
-    localStorage.setItem(CONST_KEY_TOKEN, idToken);
+    Cookie.set(CONST_KEY_TOKEN, idToken);
   }
 
   getToken() {
-    return localStorage.getItem(CONST_KEY_TOKEN);
+    return Cookie.get(CONST_KEY_TOKEN);
   }
 
   login = () => {
-    this.setToken("token");
+    const idToken =
+      "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YWZiYWE2NmUyMmMyYzZkODI0ZTkzM2IiLCJyb2xlIjoicm9vdCIsImVtYWlsIjoiYWRtaW5fYmlieWNsZUBiYmIuY29tIiwibmFtZSI6IlZtb2Rldl9EZXZvbG9wbWVudCIsImlhdCI6MTU4OTQ0MjM0MCwiZXhwIjoxNTkwMDQ3MTQwfQ.sK8ouo29ScM1DIOi0065fSRvhuomiCp6qFOt-FIDceqiBtPM2Qxs7AlPHIXWfK_TOe7m3bU9lquOgumqDnmndA";
+    this.setToken(idToken);
     Router.push({
       pathname: "/",
     });
   };
 
   logout() {
-    localStorage.removeItem(CONST_KEY_TOKEN);
-    localStorage.removeItem(CONST_KEY_PROFILE);
+    Cookie.remove(CONST_KEY_TOKEN);
     Router.push({
-      pathname: "/login",
+      pathname: "/",
     });
-  }
-
-  _checkStatus(response) {
-    if (response.status >= 200 && response.status < 300) {
-      return response;
-    } else {
-      var error = new Error(response.statusText);
-      error.response = response;
-      throw error;
-    }
   }
 }

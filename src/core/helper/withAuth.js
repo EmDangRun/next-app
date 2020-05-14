@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import Router from "next/router";
+import ServerCookie from "next-cookies";
+import { CONST_KEY_TOKEN } from "./authService";
 export const CONST_ROLE_APP = {
   ADMIN: "admin",
   USER: "user",
@@ -19,18 +21,18 @@ function navigatePage(ctx, pathname) {
 export default function withAuth(WrappedComponent, role = null) {
   return class Authenticated extends Component {
     static async getInitialProps(ctx) {
-      let token = "";
+      let token = ServerCookie(ctx)[CONST_KEY_TOKEN];
       if (!token) {
         navigatePage(ctx, "/login");
       } else {
-        console.log(role, "role");
-        if (role === CONST_ROLE_APP.USER) {
-          navigatePage(ctx, `/${CONST_ROLE_APP.USER}`);
+        if (role) {
+          if (role === CONST_ROLE_APP.USER) {
+            navigatePage(ctx, `/${CONST_ROLE_APP.USER}`);
+          }
+          if (role === CONST_ROLE_APP.ADMIN) {
+            navigatePage(ctx, `/${CONST_ROLE_APP.ADMIN}`);
+          }
         }
-        if (role === CONST_ROLE_APP.ADMIN) {
-          navigatePage(ctx, `/${CONST_ROLE_APP.ADMIN}`);
-        }
-        navigatePage(ctx, "/");
       }
 
       const componentProps =

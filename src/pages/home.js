@@ -40,4 +40,4 @@ class Home extends Component {
   }
 }
 
-export default withAuth(withTranslation("common")(Home), "user");
+export default withAuth(withTranslation("common")(Home));
