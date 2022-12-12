@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@zeit/next-css": "^1.0.1",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "i18next": "^19.4.4",
     "js-cookie": "^2.2.1",
     "next": "9.1.4",
